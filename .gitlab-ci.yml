@@ -10,6 +10,7 @@ variables:
   KAFKA_CONNECT_ELASTICSEARCH_TAG: feature-redmicSupport-latest
   STACK: confluent
   SERVICES_TO_CHECK: confluent_${CI_PROJECT_NAME}
+  STATUS_CHECK_DELAY: 15
   IMAGE_NAME: ${CI_REGISTRY_IMAGE}
   IMAGE_TAG: ${CI_COMMIT_SHA}
 
