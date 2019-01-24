@@ -3,7 +3,7 @@ version: '3.5'
 services:
   kafka-connector-loader:
     image: ${IMAGE_NAME}:${IMAGE_TAG:-latest}
-    command: cp -a /jar/. /connect-jars && echo "Connectors jars copied to Connect volume successfully"
+    command: sh -c "cp -a /jar/. /connect-jars && echo 'Connectors jars copied to Connect volume successfully'"
     networks:
       - kafka-net
     volumes:
