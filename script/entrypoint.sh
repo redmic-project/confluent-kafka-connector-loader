@@ -16,7 +16,7 @@ then
 fi
 
 echo "Scaling Connect service to 0 .."
-docker service scale -q ${CONNECT_SERVICE_NAME}=0
+docker service scale ${CONNECT_SERVICE_NAME}=0
 
 if cp -a /jar/. /connect-jars
 then
@@ -26,6 +26,6 @@ else
 fi
 
 echo "Scaling Connect service to ${connectServiceDesiredReplicas} .."
-docker service scale -q ${CONNECT_SERVICE_NAME}=${connectServiceDesiredReplicas}
+docker service scale ${CONNECT_SERVICE_NAME}=${connectServiceDesiredReplicas}
 
 echo "Done!"
