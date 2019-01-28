@@ -26,6 +26,6 @@ else
 fi
 
 echo "Scaling Connect service to ${connectServiceDesiredReplicas} .."
-docker service scale ${CONNECT_SERVICE_NAME}=${connectServiceDesiredReplicas}
+docker service scale -d ${CONNECT_SERVICE_NAME}=${connectServiceDesiredReplicas}
 
 echo "Done!"
