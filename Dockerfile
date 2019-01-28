@@ -7,3 +7,7 @@ FROM alpine:3.8
 LABEL maintainer="info@redmic.es"
 
 COPY --from=kce /jar/ /jar
+
+COPY script /
+
+ENTRYPOINT ["/entrypoint.sh"]

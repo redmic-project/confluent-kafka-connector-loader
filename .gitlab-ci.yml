@@ -78,8 +78,11 @@ deploy-supporting-branch-develop:
   variables:
     SSH_REMOTE: ${DEV_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
+    CONNECT_SERVICE_NAME: ${DEV_CONNECT_SERVICE_NAME}
   script:
-    - deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+    - >
+      deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+      CONNECT_SERVICE_NAME=${CONNECT_SERVICE_NAME}
   environment:
     name: dev
   only:
@@ -94,8 +97,11 @@ deploy-stable-branch-develop:
   variables:
     SSH_REMOTE: ${DEV_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
+    CONNECT_SERVICE_NAME: ${DEV_CONNECT_SERVICE_NAME}
   script:
-    - deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+    - >
+      deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+      CONNECT_SERVICE_NAME=${CONNECT_SERVICE_NAME}
   environment:
     name: dev
   only:
@@ -108,8 +114,11 @@ deploy-supporting-branch-production:
   variables:
     SSH_REMOTE: ${PRO_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
+    CONNECT_SERVICE_NAME: ${PRO_CONNECT_SERVICE_NAME}
   script:
-    - deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+    - >
+      deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+      CONNECT_SERVICE_NAME=${CONNECT_SERVICE_NAME}
   environment:
     name: pro
   only:
@@ -124,8 +133,11 @@ deploy-stable-branch-production:
   variables:
     SSH_REMOTE: ${PRO_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
+    CONNECT_SERVICE_NAME: ${PRO_CONNECT_SERVICE_NAME}
   script:
-    - deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+    - >
+      deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
+      CONNECT_SERVICE_NAME=${CONNECT_SERVICE_NAME}
   environment:
     name: pro
   only:

@@ -3,11 +3,13 @@ version: '3.5'
 services:
   kafka-connector-loader:
     image: ${IMAGE_NAME}:${IMAGE_TAG:-latest}
-    command: sh -c "cp -a /jar/. /connect-jars && echo 'Connectors jars copied to Connect volume successfully'"
+    environment:
+      - CONNECT_SERVICE_NAME
     networks:
       - kafka-net
     volumes:
       - connect-jars-vol:/connect-jars
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       mode: replicated
       replicas: 1
