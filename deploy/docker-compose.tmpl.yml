@@ -15,6 +15,9 @@ services:
       replicas: 1
       restart_policy:
         condition: none
+      placement:
+        constraints:
+          - node.role == manager
       resources:
         limits:
           cpus: '0.1'
@@ -26,7 +29,3 @@ networks:
   kafka-net:
     name: ${KAFKA_NET_NAME:-kafka-net}
     external: true
-
-volumes:
-  connect-jars-vol:
-    name: ${CONNECT_JARS_VOL_NAME:-connect-jars-vol}
