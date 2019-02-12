@@ -5,6 +5,9 @@ stages:
 
 image: docker:stable
 
+services:
+  - docker:dind
+
 variables:
   DOCKER_DRIVER: overlay2
   KAFKA_CONNECT_ELASTICSEARCH_TAG: feature-redmicSupport-latest
@@ -13,9 +16,6 @@ variables:
   STATUS_CHECK_DELAY: 15
   IMAGE_NAME: ${CI_REGISTRY_IMAGE}
   IMAGE_TAG: ${CI_COMMIT_SHA}
-
-services:
-  - docker:dind
 
 docker-build-commit-non-master-branches:
   stage: package
@@ -74,11 +74,10 @@ container-scanning:
 
 deploy-supporting-branch-develop:
   stage: deploy
-  image: registry.gitlab.com/redmic-project/docker/docker-deploy:latest
+  image: registry.gitlab.com/redmic-project/docker/docker-deploy:${DOCKER_DEPLOY_IMAGE_TAG}
   variables:
     SSH_REMOTE: ${DEV_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
-    CONNECT_SERVICE_NAME: ${DEV_CONNECT_SERVICE_NAME}
   script:
     - >
       deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
@@ -93,11 +92,10 @@ deploy-supporting-branch-develop:
 
 deploy-stable-branch-develop:
   stage: deploy
-  image: registry.gitlab.com/redmic-project/docker/docker-deploy:latest
+  image: registry.gitlab.com/redmic-project/docker/docker-deploy:${DOCKER_DEPLOY_IMAGE_TAG}
   variables:
     SSH_REMOTE: ${DEV_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.dev.yml
-    CONNECT_SERVICE_NAME: ${DEV_CONNECT_SERVICE_NAME}
   script:
     - >
       deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
@@ -110,11 +108,10 @@ deploy-stable-branch-develop:
 
 deploy-supporting-branch-production:
   stage: deploy
-  image: registry.gitlab.com/redmic-project/docker/docker-deploy:latest
+  image: registry.gitlab.com/redmic-project/docker/docker-deploy:${DOCKER_DEPLOY_IMAGE_TAG}
   variables:
     SSH_REMOTE: ${PRO_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
-    CONNECT_SERVICE_NAME: ${PRO_CONNECT_SERVICE_NAME}
   script:
     - >
       deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
@@ -129,11 +126,10 @@ deploy-supporting-branch-production:
 
 deploy-stable-branch-production:
   stage: deploy
-  image: registry.gitlab.com/redmic-project/docker/docker-deploy:latest
+  image: registry.gitlab.com/redmic-project/docker/docker-deploy:${DOCKER_DEPLOY_IMAGE_TAG}
   variables:
     SSH_REMOTE: ${PRO_SSH_REMOTE}
     COMPOSE_FILE: docker-compose.tmpl.yml:docker-compose.prod.yml
-    CONNECT_SERVICE_NAME: ${PRO_CONNECT_SERVICE_NAME}
   script:
     - >
       deploy.sh IMAGE_NAME=${IMAGE_NAME} IMAGE_TAG=${IMAGE_TAG} COMPOSE_FILE=${COMPOSE_FILE}
