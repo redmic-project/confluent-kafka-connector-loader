@@ -1,8 +1,8 @@
 version: '3.5'
 
-services:
-  kafka-connector-loader:
-    deploy:
-      placement:
-        constraints:
-          - node.role == worker
+volumes:
+  connect-jars-vol:
+    name: ${CONNECT_JARS_VOL_NAME:-connect-jars-vol}
+    driver: 'cloudstor:aws'
+    driver_opts:
+      backing: shared
